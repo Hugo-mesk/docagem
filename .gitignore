@@ -1,5 +1,5 @@
 *.pyc
-./static/
+static/
 db.sqlite3
 project.db
 local_settings.py
