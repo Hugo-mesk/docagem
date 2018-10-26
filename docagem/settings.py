@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')h=b2&_6gvi629k+8_ixbnbp=^-&)%3qfzjhw&)e!6cip6l)l3'
+SECRET_KEY = '<Secret-key>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -216,12 +216,12 @@ THUMBNAIL_PROCESSORS = (
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-DISQUS_API_KEY = 'DokyqXhZe8tjGL4u00BpJ8fRif4vCDITLeEiR3zBL7do5L1qXcWgDqzmNCNovrsP'
-DISQUS_WEBSITE_SHORTNAME = 'hugomesk-pythonanywhere-com'
+DISQUS_API_KEY = '<API-Key>'
+DISQUS_WEBSITE_SHORTNAME = '<API-Name>'
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-DROPBOX_OAUTH2_TOKEN = 'RRcl_FEUqF4AAAAAAAAsKtUvTjdHpeZ1Xm72UMoOzkL8zktUEUZFlDy4_bJK0vQZ'
-DROPBOX_ROOT_PATH = 'docagem'
+DROPBOX_OAUTH2_TOKEN = '<API-TOKEN>'
+DROPBOX_ROOT_PATH = '<API-Name>'
