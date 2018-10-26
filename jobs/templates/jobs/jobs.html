@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-sm-12 blog-main">
+{% if perms.jobs.can_view_job_prices %}
+  <!-- We have the ability to see prices. -->
+   <table>
+  <tr>
+    <th>Item</th><!-- Refers to number as item is the uper conecpt. -->
+    <th>Description</th>
+    <th>Remarks</th>
+    <th>Price</th>
+    <th>Qnt</th>
+    <th>Sub Total</th>
+  </tr>
+  {% for job in item.jobs.all %}
+    {% if job.number == 0 %}
+      <tr>
+        <td/>
+        <td class="cel-j" colspan="1">{{ job.description }}</td>
+        <td class="cel-j" colspan="4">{{ job.remarks }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td class="cel-c">{{ job.number }}</td>
+        <td class="cel-j">{{ job.description }}</td>
+        <td class="cel-j">{{ job.remarks }}</td>
+        <td class="cel-c">{{ job.price }}</td>
+        <td class="cel-c">{{ job.multiplier }}</td>
+        <td class="cel-c">{{ job.sub_total }}</td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+  <tr>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-c"><strong>TOTAL</strong></td>
+    <td class="cel-c">{% if item.total %}US$ {{ item.total }}{% else %}0,0{% endif %}</td>
+  </tr>
+{% else %}
+  <!-- They don't have the ability to see prices -->
+     <table>
+  <tr>
+    <th>Item</th>
+    <th>Description</th>
+    <th>Remarks</th>
+  </tr>
+  {% for job in item.jobs.all %}
+      {% if job.number == 0 %}
+      <tr>
+        <td/>
+        <td class="cel-j" colspan="1">{{ job.description }}</td>
+        <td class="cel-j" colspan="4">{{ job.remarks }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td class="cel-c">{{ job.number }}</td>
+        <td class="cel-j">{{ job.description }}</td>
+        <td class="cel-j">{{ job.remarks }}</td>
+      </tr>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+</table>
+    </div>
+</div>

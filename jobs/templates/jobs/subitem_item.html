@@ -1,0 +1,66 @@
+{% load disqus_tags static %}
+
+{% for subitem in subitems %}
+<div class="row">
+        {% if subitem.files.count > 0 %}<div class="col-sm-4 blog-main">{% else %}<div class="col-sm-12 blog-main">{% endif %}
+          <h3>{{ subitem.item.chapter.id }}.{{ subitem.item.number }}.{{ subitem.number }} - {{ subitem.title }}</h3>
+        </div>
+        {% if subitem.files.count > 0 %}
+        <div class="col-sm-8 blog-main">
+        <div class="panel panel-default">
+          <ul class="file-list">
+          {% for file in subitem.files.all %}
+            <li><a href="{{ file.document.url }}">{{file.document.name}}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+    {% if subitem.picture.count > 0 %}
+    <div class="col-sm-6 blog-main">
+    {% else %}
+        <div class="col-sm-12 blog-main">
+    {% endif %}
+      <ul>
+        {% if subitem.equipment %} <li>Equipment: {{ subitem.equipment }}</li> {% endif %}
+        {% if subitem.maker %}<li>Maker: {{ subitem.maker }}</li>{% endif %}
+        {% if subitem.equipment_model %}<li>Model: {{ subitem.equipment_model }}</li>{% endif %}
+        {% if subitem.serial_number %}<li>Serial Number: {{ subitem.serial_number }}</li>{% endif %}
+      </ul>
+      <p>{{ subitem.description|linebreaks }}</p>
+    </div>
+    {% if subitem.picture.count > 0 %}
+    <div class="col-sm-6 blog-main">
+      <ul>
+      {% for picture in subitem.picture.all %}
+        <img src="{{ picture.comment.url }}">
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+     {% if subitem.drawings.count > 0 %}
+     <div class="row">
+        <div class="col-sm-12 blog-main">
+            <ul>
+              {% for drawing in subitem.drawings.all %}
+              <img src="{{ drawing.comment.url }}">
+              {% endfor %}
+            </ul>
+       </div>
+     </div>
+     {% endif %}
+
+    {% if subitem.subjobs_set.count > 0 %}
+      {% include "jobs/subjobs.html" %}
+    {% else %}
+        <p>No jobs!</p>
+    {% endif %}
+        <div class="row">
+        <div class="col-sm-6 blog-main">
+          {% disqus_show_comments %}
+        </div>
+    </div>
+{% endfor %}

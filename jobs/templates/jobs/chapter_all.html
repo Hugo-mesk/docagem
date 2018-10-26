@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n cms_tags staticfiles sekizai_tags menu_tags static %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block page_title %}
+  Elcano
+{% endblock page_title %}
+{% block page_subtitle %}
+  {% trans "Enterprise resource planning" %}
+{% endblock page_subtitle %}
+
+{% block breadcumb %}
+<div class="breadcrumb">
+  {% show_breadcrumb 0 "breadcrumb.html" %}
+</div>
+{% endblock breadcumb %}
+
+{% block content %}
+  {% if chapters_list %}
+  {% for chapter in chapters_list %}
+  <div class="row">
+    <div class="col-sm-12 blog-main">
+      <h1>{{ chapter.title }}</h1>
+    </div>
+  </div>
+  {% include "jobs/item_all.html" with items_subitems=chapter.items.all %}
+  {% endfor %}
+
+  {% else %}
+    <p>No chapters are available.</p>
+  {% endif %}
+
+{% endblock content %}

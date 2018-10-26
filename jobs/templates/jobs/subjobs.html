@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-sm-12 blog-main">
+{% if perms.subjobs.can_view_subjob_prices %}
+  <!-- We have the ability to see prices. -->
+   <table>
+  <tr>
+    <th>Item</th><!-- Refers to number as item is the uper conecpt. -->
+    <th>Description</th>
+    <th>Remarks</th>
+    <th>Price</th>
+    <th>Qnt</th>
+    <th>Sub Total</th>
+  </tr>
+  {% for subjob in subitem.subjobs_set.all %}
+    {% if subjob.number == 0 %}
+      <tr>
+        <td/>
+        <td class="cel-j" colspan="1">{{ subjob.description }}</td>
+        <td class="cel-j" colspan="4">{{ subjob.remarks }}</td>
+      </tr>
+    {% else %}
+  <tr>
+    <td class="cel-c">{{ subjob.number }}</td>
+    <td class="cel-j">{{ subjob.description }}</td>
+    <td class="cel-j">{{ subjob.remarks }}</td>
+    <td class="cel-c">{{ subjob.price }}</td>
+    <td class="cel-c">{{ subjob.multiplier }}</td>
+    <td class="cel-c">{{ subjob.sub_total }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+  <tr>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-x"></td>
+    <td class="cel-c"><strong>TOTAL</strong></td>
+    <td class="cel-c">{% if subitem.total %}US$ {{ subitem.total }}{% else %}0,0{% endif %}</td>
+  </tr>
+{% else %}
+  <!-- They don't have the ability to see prices -->
+     <table>
+  <tr>
+    <th>Item</th>
+    <th>Description</th>
+    <th>Remarks</th>
+  </tr>
+  {% for subjob in subitem.subjobs_set.all %}
+    {% if subjob.number == 0 %}
+      <tr>
+        <td/>
+        <td class="cel-j" colspan="1">{{ subjob.description }}</td>
+        <td class="cel-j" colspan="4">{{ subjob.remarks }}</td>
+      </tr>
+    {% else %}
+  <tr>
+    <td class="cel-c">{{ subjob.number }}</td>
+    <td class="cel-j">{{ subjob.description }}</td>
+    <td class="cel-j">{{ subjob.remarks }}</td>
+  </tr>
+  {% endif %}
+  {% endfor %}
+{% endif %}
+
+    </table>
+    </div>
+</div>

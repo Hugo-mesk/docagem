@@ -1,0 +1,58 @@
+{% for subitem in item.subitems.all %}
+    <div class="row">
+        <div class="col-sm-4 blog-main">
+          <h3>{{ subitem.title }}</h3>
+        </div>
+        {% if subitem.files.count > 0 %}
+        <div class="col-sm-8 blog-main">
+        <div class="panel panel-default">
+          <ul>
+          {% for subfile in subitem.files.all %}
+            <li><a href="{{ subfile.document.url }}">{{subfile.document.name}}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-sm-6 blog-main">
+              <ul>
+                {% if subitem.equipment %} <li>Equipment: {{ subitem.equipment }}</li> {% endif %}
+                {% if subitem.maker %}<li>Maker: {{ subitem.maker }}</li>{% endif %}
+                {% if subitem.equipment_model %}<li>Model: {{ subitem.equipment_model }}</li>{% endif %}
+                {% if subitem.serial_number %}<li>Serial Number: {{ subitem.serial_number }}</li>{% endif %}
+              </ul>
+    		  <p>{{ subitem.description|linebreaks }}</p>
+    		  {% if subitem.html_description %}{{ subitem.html_description }}{% endif %}
+        </div>
+        {% if subitem.picture.count > 0 %}
+        <div class="col-sm-6 blog-main">
+          <ul>
+          {% for picture in subitem.picture.all %}
+            <img class='side-picture' src="{{ picture.comment.url }}">
+          {% endfor %}
+          </ul>
+        </div>
+    {% endif %}
+    </div>
+    {% if subitem.drawings.count > 0 %}
+
+
+              {% for drawing in subitem.drawings.all %}
+              <div class="row">
+                <div class="col-sm-12 blog-main">
+                  <img class='inline-picture'  src="{{ drawing.comment.url }}">
+                </div>
+              </div>
+              {% endfor %}
+
+
+     {% endif %}
+
+    {% if subitem.subjobs_set.count > 0 %}
+      {% include "jobs/subjobs.html" %}
+    {% else %}
+        <p>No jobs!</p>
+    {% endif %}
+{% endfor %}

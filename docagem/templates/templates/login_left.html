@@ -1,0 +1,34 @@
+{% load i18n staticfiles sekizai_tags menu_tags cache  %}
+
+
+
+{% if user.is_authenticated %}
+<li class="row-lg-2" style="position: absolute; right: 100px">
+	<a href= {% url "node:index" %}>
+		<span class="glyphicon glyphicon-user"> {{ user }}</span>
+	</a>
+</li>
+<li class="row-lg-2" style="position: absolute; right: 12px; top: 9px">
+	<form id="logoutform" method="POST" action="{% url 'node:logout' %}">
+		{% csrf_token %}
+		<button class="btn btn-default">
+		<span class="glyphicon glyphicon-log-out">{% trans ' logout' %}</span>
+		</button>
+	</form>
+</li>
+{% else %}
+<li class="row-lg-2" style="position: absolute; right: 100px; top: -7px">
+	<a href="{% url 'node:login' %}" >
+	<button class="btn btn-default">
+		<span class="glyphicon glyphicon-log-in">{% trans ' login' %}</span>
+	</button>
+	</a>
+</li>
+<li class="row-lg-2" style="position: absolute; right: 12px; top: -7px">
+	<a href="{% url 'node:register' %}">
+	<button class="btn btn-danger">
+		{% trans 'Sing In' %}
+	</button>
+	</a>
+</li>
+{% endif %}

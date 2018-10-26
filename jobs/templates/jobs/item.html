@@ -1,0 +1,70 @@
+     {% for item in items_subitems %}
+    <div class="row">
+        {% if item.files.count > 0 %}
+        <div class="col-sm-4 blog-main">
+        {% else %}
+        <div class="col-sm-12 blog-main">
+        {% endif %}
+          <h4><a href="{{ request.path }}{{ item.number }}/">{{ chapter.id }}.{{item.number}} - {{ item.title }}</a></h4>
+        </div>
+        {% if item.files.count > 0 %}
+        <div class="col-sm-8 blog-main">
+        <div class="panel panel-default">
+          <ul class="file-list">
+          {% for file in item.files.all %}
+            <li><a href="{{ file.document.url }}">{{file.document.name}}</a></li>
+          {% endfor %}
+          </ul>
+        </div>
+        </div>
+        {% endif %}
+    </div>
+    <div class="row">
+    {% if item.picture.count > 0 %}
+    <div class="col-sm-6 blog-main">
+    {% else %}
+    <div class="col-sm-12 blog-main">
+    {% endif %}
+      <ul>
+        {% if item.equipment %} <li>Equipment: {{ item.equipment }}</li> {% endif %}
+        {% if item.maker %}<li>Maker: {{ item.maker }}</li>{% endif %}
+        {% if item.equipment_model %}<li>Model: {{ item.equipment_model }}</li>{% endif %}
+        {% if item.serial_number %}<li>Serial Number: {{ item.serial_number }}</li>{% endif %}
+      </ul>
+      <p>{{ item.description|linebreaks }}</p>
+      {% if item.html_description %}{{ item.html_description }}{% endif %}
+    </div>
+    {% if item.picture.count > 0 %}
+    <div class="col-sm-6 blog-main">
+      <ul>
+      {% for picture in item.picture.all %}
+        <img class='side-picture' src="{{ picture.comment.url }}">
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+     {% if item.drawings.count > 0 %}
+              {% for drawing in item.drawings.all %}
+                <div class="row">
+                  <div class="col-sm-12 blog-main">
+                    <img class='inline-picture' src="{{ drawing.comment.url }}">
+                  </div>
+                </div>
+              {% endfor %}
+     {% endif %}
+
+    {% if item.jobs.count > 0 %}
+      {% include "jobs/jobs.html" %}
+    {% else %}
+        <p>No jobs!</p>
+    {% endif %}
+
+    {% if item.subitems.count > 0 %}
+      {% include "jobs/subitem.html" %}
+    {% endif %}
+
+
+
+
+  {% endfor %}
